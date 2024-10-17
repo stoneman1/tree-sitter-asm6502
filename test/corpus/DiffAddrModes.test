@@ -1,0 +1,45 @@
+==========
+Different Addressing Modes
+==========
+lda #$10       ; Immediate
+lda $2000      ; Absolute
+lda $2000,X    ; Absolute,X
+lda $2000,Y    ; Absolute,Y
+lda $10        ; Zero Page
+lda $10,X      ; Zero Page,X
+lda $10,Y      ; Zero Page,Y
+lda ($10)      ; Indirect
+lda ($10,X)    ; Indirect,X
+lda ($10),Y    ; Indirect,Y
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute_x (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute_y (number))))
+    (instruction
+        (mnemonic)
+        (operand (zero_page (number))))
+    (instruction
+        (mnemonic)
+        (operand (zero_page_x (number))))
+    (instruction
+        (mnemonic)
+        (operand (zero_page_y (number))))
+    (instruction
+        (mnemonic)
+        (operand (indirect (number))))
+    (instruction
+        (mnemonic)
+        (operand (indirect_x (number))))
+    (instruction
+        (mnemonic)
+        (operand (indirect_y (number)))))

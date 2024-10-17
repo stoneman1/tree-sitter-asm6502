@@ -1,0 +1,561 @@
+[
+  {
+    "type": "absolute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "absolute_x",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "absolute_y",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "immediate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indirect",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indirect_x",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indirect_y",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instruction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mnemonic",
+          "named": true
+        },
+        {
+          "type": "operand",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "mnemonic",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "operand",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "absolute",
+          "named": true
+        },
+        {
+          "type": "absolute_x",
+          "named": true
+        },
+        {
+          "type": "absolute_y",
+          "named": true
+        },
+        {
+          "type": "accumulator",
+          "named": true
+        },
+        {
+          "type": "immediate",
+          "named": true
+        },
+        {
+          "type": "indirect",
+          "named": true
+        },
+        {
+          "type": "indirect_x",
+          "named": true
+        },
+        {
+          "type": "indirect_y",
+          "named": true
+        },
+        {
+          "type": "relative",
+          "named": true
+        },
+        {
+          "type": "zero_page",
+          "named": true
+        },
+        {
+          "type": "zero_page_x",
+          "named": true
+        },
+        {
+          "type": "zero_page_y",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "relative",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "instruction",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "zero_page",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "zero_page_x",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "zero_page_y",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "X",
+    "named": false
+  },
+  {
+    "type": "Y",
+    "named": false
+  },
+  {
+    "type": "accumulator",
+    "named": true
+  },
+  {
+    "type": "adb",
+    "named": false
+  },
+  {
+    "type": "adc",
+    "named": false
+  },
+  {
+    "type": "and",
+    "named": false
+  },
+  {
+    "type": "asl",
+    "named": false
+  },
+  {
+    "type": "bcc",
+    "named": false
+  },
+  {
+    "type": "bcs",
+    "named": false
+  },
+  {
+    "type": "beq",
+    "named": false
+  },
+  {
+    "type": "bit",
+    "named": false
+  },
+  {
+    "type": "block_comment",
+    "named": true
+  },
+  {
+    "type": "bmi",
+    "named": false
+  },
+  {
+    "type": "bne",
+    "named": false
+  },
+  {
+    "type": "bpl",
+    "named": false
+  },
+  {
+    "type": "brk",
+    "named": false
+  },
+  {
+    "type": "bvc",
+    "named": false
+  },
+  {
+    "type": "bvs",
+    "named": false
+  },
+  {
+    "type": "clc",
+    "named": false
+  },
+  {
+    "type": "cld",
+    "named": false
+  },
+  {
+    "type": "cli",
+    "named": false
+  },
+  {
+    "type": "clv",
+    "named": false
+  },
+  {
+    "type": "cmp",
+    "named": false
+  },
+  {
+    "type": "cpx",
+    "named": false
+  },
+  {
+    "type": "cpy",
+    "named": false
+  },
+  {
+    "type": "dec",
+    "named": false
+  },
+  {
+    "type": "dex",
+    "named": false
+  },
+  {
+    "type": "dey",
+    "named": false
+  },
+  {
+    "type": "eor",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "inc",
+    "named": false
+  },
+  {
+    "type": "inx",
+    "named": false
+  },
+  {
+    "type": "iny",
+    "named": false
+  },
+  {
+    "type": "jmp",
+    "named": false
+  },
+  {
+    "type": "jsr",
+    "named": false
+  },
+  {
+    "type": "lda",
+    "named": false
+  },
+  {
+    "type": "ldx",
+    "named": false
+  },
+  {
+    "type": "ldy",
+    "named": false
+  },
+  {
+    "type": "line_comment",
+    "named": true
+  },
+  {
+    "type": "lsr",
+    "named": false
+  },
+  {
+    "type": "nop",
+    "named": false
+  },
+  {
+    "type": "number",
+    "named": true
+  },
+  {
+    "type": "ora",
+    "named": false
+  },
+  {
+    "type": "pha",
+    "named": false
+  },
+  {
+    "type": "php",
+    "named": false
+  },
+  {
+    "type": "pla",
+    "named": false
+  },
+  {
+    "type": "plp",
+    "named": false
+  },
+  {
+    "type": "rol",
+    "named": false
+  },
+  {
+    "type": "ror",
+    "named": false
+  },
+  {
+    "type": "rti",
+    "named": false
+  },
+  {
+    "type": "rts",
+    "named": false
+  },
+  {
+    "type": "sbc",
+    "named": false
+  },
+  {
+    "type": "sec",
+    "named": false
+  },
+  {
+    "type": "sed",
+    "named": false
+  },
+  {
+    "type": "sei",
+    "named": false
+  },
+  {
+    "type": "sta",
+    "named": false
+  },
+  {
+    "type": "stx",
+    "named": false
+  },
+  {
+    "type": "sty",
+    "named": false
+  },
+  {
+    "type": "tax",
+    "named": false
+  },
+  {
+    "type": "tay",
+    "named": false
+  },
+  {
+    "type": "tsx",
+    "named": false
+  },
+  {
+    "type": "txa",
+    "named": false
+  },
+  {
+    "type": "txs",
+    "named": false
+  },
+  {
+    "type": "tya",
+    "named": false
+  }
+]

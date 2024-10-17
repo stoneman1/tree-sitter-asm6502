@@ -1,0 +1,4 @@
+module TreeSitterAsm {
+    umbrella "/Users/aleksipousar/Documents/vmedia.nosync/zed64/tree-sitter-asm6502-kickassembler/bindings/swift"
+    export *
+}

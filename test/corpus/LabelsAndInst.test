@@ -1,0 +1,31 @@
+==========
+Labels and Instructions
+==========
+start:
+    lda #$01
+    sta $0200
+loop:
+    inx
+    cpx #$10
+    bne loop
+    rts
+---
+(source_file
+    (label (identifier))
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (label (identifier))
+    (instruction
+        (mnemonic))
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (relative (identifier))))
+    (instruction
+        (mnemonic)))

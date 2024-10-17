@@ -1,0 +1,57 @@
+==========
+Complex Example
+==========
+// Initialize memory
+init:
+    lda #$00
+    sta $0200
+    sta $0201
+    sta $0202
+
+// Main loop
+main:
+    lda $0200
+    clc
+    adc #$01
+    sta $0200
+    bne main
+
+// End of program
+end:
+    rts
+---
+(source_file
+    (line_comment)
+    (label (identifier))
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (line_comment)
+    (label (identifier))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (instruction
+        (mnemonic))
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (instruction
+        (mnemonic)
+        (operand (relative (identifier))))
+    (line_comment)
+    (label (identifier))
+    (instruction
+        (mnemonic)))

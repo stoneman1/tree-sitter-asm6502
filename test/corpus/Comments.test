@@ -1,0 +1,23 @@
+==========
+Comments
+==========
+// This is a line comment
+lda #$10       // Immediate value
+sta $2000      // Store in memory
+/* This is a block comment
+   spanning multiple lines */
+inx            // Increment X register
+---
+(source_file
+    (line_comment)
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (line_comment)
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (line_comment)
+    (block_comment)
+    (instruction
+        (mnemonic)))

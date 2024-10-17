@@ -1,0 +1,26 @@
+==========
+Identifiers
+==========
+my_label:
+    lda #$01
+    sta my_var
+    jmp my_label
+
+my_var:
+    .byte $00
+---
+(source_file
+    (label (identifier))
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (relative (identifier))))
+    (instruction
+        (mnemonic)
+        (operand (relative (identifier))))
+    (label (identifier))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number)))))

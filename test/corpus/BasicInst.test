@@ -1,0 +1,16 @@
+==========
+Basic Instructions
+==========
+lda #$10
+sta $2000
+inx
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (immediate (number))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (number))))
+    (instruction
+        (mnemonic)))
