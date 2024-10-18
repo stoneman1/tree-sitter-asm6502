@@ -1,6 +1,6 @@
 VERSION := 0.0.1
 
-LANGUAGE_NAME := tree-sitter-asm
+LANGUAGE_NAME := tree-sitter-asm6502
 
 # repository
 SRC_DIR := src

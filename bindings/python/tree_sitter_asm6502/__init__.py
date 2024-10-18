@@ -1,4 +1,4 @@
-"Asm grammar for tree-sitter"
+"Asm6502 grammar for tree-sitter"
 
 from ._binding import language
 

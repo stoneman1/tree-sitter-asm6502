@@ -1,28 +1,24 @@
 {
   "grammars": [
     {
-      "name": "asm",
-      "camelcase": "Asm",
+      "name": "asm6502",
+      "camelcase": "Asm6052",
       "scope": "source.asm",
       "path": ".",
-      "file-types": [
-        "s",
-        "asm",
-        "assembly"
-      ]
+      "file-types": ["s", "asm", "assembly", "a"]
     }
   ],
   "metadata": {
     "version": "0.1.0",
     "license": "MIT",
-    "description": "assembly grammar for tree-sitter",
+    "description": "assembly 6502 grammar for tree-sitter",
     "authors": [
       {
-        "name": "RubixDev"
+        "name": "Aleksi Pousar"
       }
     ],
     "links": {
-      "repository": "https://github.com/rush-rs/tree-sitter-asm"
+      "repository": "https://github.com/stoneman1/tree-sitter-asm6502"
     }
   },
   "bindings": {

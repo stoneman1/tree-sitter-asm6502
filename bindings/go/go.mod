@@ -1,4 +1,4 @@
-module github.com/tree-sitter/tree-sitter-asm
+module github.com/stoneman1/tree-sitter-asm6502
 
 go 1.22
 

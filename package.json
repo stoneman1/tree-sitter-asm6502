@@ -1,7 +1,7 @@
 {
-  "name": "tree-sitter-asm",
+  "name": "tree-sitter-asm6502",
   "version": "0.1.0",
-  "description": "assembly grammar for tree-sitter",
+  "description": "KickAssembler assembly 6502 grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rush-rs/tree-sitter-asm"
+    "url": "https://github.com/stoneman1/tree-sitter-asm6502"
   },
   "keywords": [
     "parser",
@@ -26,7 +26,7 @@
     "queries/*",
     "src/**"
   ],
-  "author": "RubixDev",
+  "author": "Aleksi Pousar",
   "license": "MIT",
   "dependencies": {
     "node-addon-api": "^7.1.0",

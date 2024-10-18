@@ -1,15 +1,15 @@
-package tree_sitter_asm_test
+package tree_sitter_asm6502_test
 
 import (
 	"testing"
 
 	tree_sitter "github.com/smacker/go-tree-sitter"
-	"github.com/tree-sitter/tree-sitter-asm"
+	"github.com/stoneman1/tree-sitter-asm6502"
 )
 
 func TestCanLoadGrammar(t *testing.T) {
-	language := tree_sitter.NewLanguage(tree_sitter_asm.Language())
+	language := tree_sitter.NewLanguage(tree_sitter_asm6502.Language())
 	if language == nil {
-		t.Errorf("Error loading Asm grammar")
+		t.Errorf("Error loading Asm6502 grammar")
 	}
 }
