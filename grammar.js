@@ -1,23 +1,25 @@
 module.exports = grammar({
   name: "asm6502",
 
+  // Define comments and extras
   extras: ($) => [
-    /\s/, // Allow whitespace
+    /\s+/, // Allow whitespace
     $.line_comment,
     $.block_comment,
   ],
 
-  // Declare conflicts between the mnemonic followed by an operand or a label
+  // Declare conflicts between the mnemonic followed by an operand
   conflicts: ($) => [
     [$.absolute_x, $.zero_page_x],
     [$.absolute_y, $.zero_page_y],
   ],
 
   rules: {
-    source_file: ($) => repeat($._statement),
+    source_file: ($) =>
+      repeat(choice($.line_comment, $.block_comment, $.instruction, $.label)),
 
-    // A statement is either a label or an instruction
-    _statement: ($) => choice($.instruction, $.label),
+    // A statement is either a label, instruction or directive
+    _statement: ($) => choice($.instruction, $.label), //, $.directive),
 
     // Labels are identifiers followed by a colon
     label: ($) => seq($.identifier, ":"),
@@ -131,15 +133,15 @@ module.exports = grammar({
     number: ($) =>
       token(
         choice(
-          /0[xX][0-9a-fA-F]+/, // Hexadecimal (e.g., $0xFF)
+          /\$[0-9a-fA-F]+/, // Hexadecimal prefixed with $
           /\d+/, // Decimal (e.g., 255)
         ),
       ),
     // Identifiers for labels and relative branches
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
 
-    // KickAssembler-style comments (using `//`)
-    line_comment: ($) => token(seq("//", /.*/)),
-    block_comment: ($) => token(seq("/*", /.*/, "*/")),
+    // KickAssembler-style comments (using `//` and `/* */`)
+    line_comment: ($) => token(seq("//", /[^\r\n\u2028\u2029]*/)),
+    block_comment: ($) => token(seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")),
   },
 });

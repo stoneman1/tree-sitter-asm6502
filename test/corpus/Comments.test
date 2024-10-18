@@ -20,4 +20,56 @@ inx            // Increment X register
     (line_comment)
     (block_comment)
     (instruction
-        (mnemonic)))
+        (mnemonic))
+      (line_comment))
+
+==========
+Simple block comment test
+==========
+/* This is a line comment */
+/* Block comment
+   that spans multiple lines */
+lda #$10
+---
+(source_file
+  (block_comment)
+  (block_comment)
+  (instruction
+    (mnemonic)
+    (operand
+        (immediate
+            (number)))))
+
+==========
+Simple comment test
+==========
+// This is a line comment
+/* Block comment
+   that spans multiple lines */
+lda #$10
+---
+(source_file
+  (line_comment)
+  (block_comment)
+  (instruction
+    (mnemonic)
+    (operand (immediate (number)))))
+
+==========
+Comment test with tests after instructions
+==========
+// Line comment before instruction
+lda #$10
+/* Block comment
+   before another instruction */
+sta $2000
+---
+(source_file
+  (line_comment)
+  (instruction
+    (mnemonic)
+    (operand (immediate (number))))
+  (block_comment)
+  (instruction
+    (mnemonic)
+    (operand (absolute (number)))))

@@ -5,8 +5,25 @@
     "source_file": {
       "type": "REPEAT",
       "content": {
-        "type": "SYMBOL",
-        "name": "_statement"
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "line_comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "block_comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "instruction"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "label"
+          }
+        ]
       }
     },
     "_statement": {
@@ -541,7 +558,7 @@
         "members": [
           {
             "type": "PATTERN",
-            "value": "0[xX][0-9a-fA-F]+"
+            "value": "\\$[0-9a-fA-F]+"
           },
           {
             "type": "PATTERN",
@@ -565,7 +582,7 @@
           },
           {
             "type": "PATTERN",
-            "value": ".*"
+            "value": "[^\\r\\n\\u2028\\u2029]*"
           }
         ]
       }
@@ -581,11 +598,11 @@
           },
           {
             "type": "PATTERN",
-            "value": ".*"
+            "value": "[^*]*\\*+([^/*][^*]*\\*+)*"
           },
           {
             "type": "STRING",
-            "value": "*/"
+            "value": "/"
           }
         ]
       }
@@ -594,7 +611,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "\\s+"
     },
     {
       "type": "SYMBOL",

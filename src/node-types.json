@@ -227,11 +227,19 @@
       "required": false,
       "types": [
         {
+          "type": "block_comment",
+          "named": true
+        },
+        {
           "type": "instruction",
           "named": true
         },
         {
           "type": "label",
+          "named": true
+        },
+        {
+          "type": "line_comment",
           "named": true
         }
       ]
