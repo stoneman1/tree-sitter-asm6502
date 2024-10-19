@@ -13,7 +13,7 @@ end:
     (label (identifier))
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (instruction
         (mnemonic)
         (operand (relative (identifier))))

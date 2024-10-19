@@ -8,9 +8,19 @@ inx
 (source_file
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (instruction
         (mnemonic)
-        (operand (absolute (number))))
+        (operand (absolute (two_byte_number))))
     (instruction
         (mnemonic)))
+
+==========
+Basic Instructions 2
+==========
+lda #$10
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (immediate (one_byte_number)))))

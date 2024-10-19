@@ -1,25 +1,25 @@
 ==========
 Conflicting Addressing Modes
 ==========
-lda $10,X      // Zero Page,X
-lda $2000,X    // Absolute,X
-lda $10,Y      // Zero Page,Y
-lda $2000,Y    // Absolute,Y
+lda $10,x      // Zero Page,x
+lda $2000,x    // Absolute,x
+lda $10,y      // Zero Page,y
+lda $2000,y    // Absolute,y
 ---
 (source_file
     (instruction
         (mnemonic)
-        (operand (zero_page_x (number))))
+        (operand (zero_page_x (one_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (absolute_x (number))))
+        (operand (absolute_x (two_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (zero_page_y (number))))
+        (operand (zero_page_y (one_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (absolute_y (number))))
+        (operand (absolute_y (two_byte_number))))
     (line_comment))

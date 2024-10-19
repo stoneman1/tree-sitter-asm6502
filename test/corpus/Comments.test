@@ -12,11 +12,11 @@ inx            // Increment X register
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (absolute (number))))
+        (operand (absolute (two_byte_number))))
     (line_comment)
     (block_comment)
     (instruction
@@ -38,7 +38,7 @@ lda #$10
     (mnemonic)
     (operand
         (immediate
-            (number)))))
+            (one_byte_number)))))
 
 ==========
 Simple comment test
@@ -53,7 +53,7 @@ lda #$10
   (block_comment)
   (instruction
     (mnemonic)
-    (operand (immediate (number)))))
+    (operand (immediate (one_byte_number)))))
 
 ==========
 Comment test with tests after instructions
@@ -68,8 +68,8 @@ sta $2000
   (line_comment)
   (instruction
     (mnemonic)
-    (operand (immediate (number))))
+    (operand (immediate (one_byte_number))))
   (block_comment)
   (instruction
     (mnemonic)
-    (operand (absolute (number)))))
+    (operand (absolute (two_byte_number)))))

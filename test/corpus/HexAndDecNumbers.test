@@ -9,17 +9,17 @@ sta $5678      // Decimal absolute
 (source_file
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (absolute (number))))
+        (operand (absolute (two_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (line_comment)
     (instruction
         (mnemonic)
-        (operand (absolute (number))))
+        (operand (absolute (two_byte_number))))
     (line_comment))

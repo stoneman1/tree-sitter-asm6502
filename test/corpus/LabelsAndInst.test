@@ -14,16 +14,16 @@ loop:
     (label (identifier))
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (instruction
         (mnemonic)
-        (operand (absolute (number))))
+        (operand (absolute (two_byte_number))))
     (label (identifier))
     (instruction
         (mnemonic))
     (instruction
         (mnemonic)
-        (operand (immediate (number))))
+        (operand (immediate (one_byte_number))))
     (instruction
         (mnemonic)
         (operand (relative (identifier))))

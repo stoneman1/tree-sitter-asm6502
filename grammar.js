@@ -8,15 +8,8 @@ module.exports = grammar({
     $.block_comment,
   ],
 
-  // Declare conflicts between the mnemonic followed by an operand
-  conflicts: ($) => [
-    [$.absolute_x, $.zero_page_x],
-    [$.absolute_y, $.zero_page_y],
-  ],
-
   rules: {
-    source_file: ($) =>
-      repeat(choice($.line_comment, $.block_comment, $.instruction, $.label)),
+    source_file: ($) => repeat($._statement),
 
     // A statement is either a label, instruction or directive
     _statement: ($) => choice($.instruction, $.label), //, $.directive),
@@ -31,7 +24,6 @@ module.exports = grammar({
     mnemonic: ($) =>
       choice(
         "adc",
-        "adb",
         "and",
         "asl",
         "bcc",
@@ -89,56 +81,67 @@ module.exports = grammar({
         "tya",
       ),
 
+    data_directive: ($) =>
+      choice("byte", "word", "text", "dword", "by", "wo", "dw"),
+
+    other_directive: ($) => choice("fill", "fillword", "lohifill", "encoding"),
+
     // Operand definitions for different addressing modes
     operand: ($) =>
       choice(
         $.immediate,
-        $.absolute,
         $.absolute_x,
         $.absolute_y,
-        $.zero_page,
+        $.absolute,
         $.zero_page_x,
         $.zero_page_y,
+        $.zero_page,
         $.indirect,
-        $.indirect_x,
-        $.indirect_y,
+        $.indirect_zeropage,
+        $.indirect_zeropage_x,
+        $.indirect_zeropage_y,
         $.relative,
         $.accumulator,
       ),
 
-    immediate: ($) => seq("#", $.number),
+    absolute_x: ($) => seq(prec(1, $.two_byte_number), ",", "x"),
 
-    absolute: ($) => prec(1, $.number), // Higher precedence for absolute addressing
+    absolute_y: ($) => seq(prec(1, $.two_byte_number), ",", "y"),
 
-    absolute_x: ($) => seq(prec(1, $.number), ",", "X"), // Higher precedence for absolute,X
+    immediate: ($) =>
+      prec(2, seq("#", choice($.binary_number, $.one_byte_number))),
 
-    absolute_y: ($) => seq(prec(1, $.number), ",", "Y"), // Higher precedence for absolute,Y
+    absolute: ($) => $.two_byte_number,
 
-    zero_page: ($) => prec(0, $.number), // Lower precedence for zero-page addressing
+    zero_page_x: ($) => seq($.one_byte_number, ",", "x"),
 
-    zero_page_x: ($) => seq(prec(0, $.number), ",", "X"), // Lower precedence for zero-page,X
+    zero_page_y: ($) => seq($.one_byte_number, ",", "y"),
 
-    zero_page_y: ($) => seq(prec(0, $.number), ",", "Y"), // Lower precedence for zero-page,Y
+    zero_page: ($) => $.one_byte_number,
 
-    indirect: ($) => seq("(", $.number, ")"),
+    indirect: ($) => seq("(", $.two_byte_number, ")"),
 
-    indirect_x: ($) => seq("(", $.number, ",", "X", ")"),
+    indirect_zeropage: ($) => seq("(", $.one_byte_number, ")"),
 
-    indirect_y: ($) => seq("(", $.number, ")", ",", "Y"),
+    indirect_zeropage_x: ($) => seq("(", $.one_byte_number, ",", "x", ")"),
+
+    indirect_zeropage_y: ($) => seq("(", $.one_byte_number, ")", ",", "y"),
 
     relative: ($) => $.identifier,
 
     accumulator: ($) => "A",
 
-    number: ($) =>
-      token(
-        choice(
-          /\$[0-9a-fA-F]+/, // Hexadecimal prefixed with $
-          /\d+/, // Decimal (e.g., 255)
-        ),
-      ),
+    // Adjusted to allow wider memory ranges, including both decimal and hex addresses
+    one_byte_number: ($) =>
+      token(choice(seq("$", /[0-9a-fA-F]{2}/), /\d{1,3}/)), // One-byte numbers for zero-page
+    two_byte_number: ($) =>
+      token(choice(seq("$", /[0-9a-fA-F]{4}/), /\d{1,5}/)), // Two-byte numbers for full memory addresses
+    binary_number: ($) => token(seq("%", /[01]{1,6}/)), // Binary numbers like %101010
+
     // Identifiers for labels and relative branches
     identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+
+    current_program_counter: ($) => token("*"),
 
     // KickAssembler-style comments (using `//` and `/* */`)
     line_comment: ($) => token(seq("//", /[^\r\n\u2028\u2029]*/)),
