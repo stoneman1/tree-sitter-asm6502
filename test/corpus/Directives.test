@@ -1,0 +1,128 @@
+==========
+Directive Tests string
+==========
+
+.print "hello"
+---
+(source_file
+    (directive
+    (directives)
+    (string)))
+
+==========
+Directive Tests macro
+==========
+
+.macro SetBorderColor(color) {
+    lda #color
+    sta $d020
+}
+---
+(source_file
+    (directive
+        (directives)
+        (identifier)
+        (parameters
+            (identifier))
+        (parameter_block
+            (instruction
+                (mnemonic)
+                (operand
+                    (immediate
+                        (identifier))))
+          (instruction
+            (mnemonic)
+            (operand
+              (absolute
+                (two_byte_number)))))))
+
+==========
+Directive Tests macro with multiple parameters
+==========
+.macro SetBorderColor(color, color2) {
+    lda #color
+    sta $d020
+    lda #color2
+    sta $d021
+}
+---
+(source_file
+    (directive
+        (directives)
+        (identifier)
+        (parameters
+            (identifier)
+            (identifier))
+        (parameter_block
+            (instruction
+                (mnemonic)
+                (operand
+                    (immediate
+                        (identifier))))
+          (instruction
+            (mnemonic)
+            (operand
+              (absolute
+                (two_byte_number))))
+          (instruction
+            (mnemonic)
+            (operand
+              (immediate
+                (identifier))))
+          (instruction
+            (mnemonic)
+            (operand
+              (absolute
+                (two_byte_number)))))))
+
+==========
+Directive Tests multiple params
+==========
+.byte $01, $02, $03, $04
+---
+(source_file
+    (directive
+        (directives)
+        (any_number
+          (one_byte_number))
+        (any_number
+          (one_byte_number))
+        (any_number
+          (one_byte_number))
+        (any_number
+          (one_byte_number))))
+
+==========
+Directive Tests variables
+==========
+.const DELAY=7
+---
+(source_file
+    (directive
+        (directives)
+        (identifier)
+        (all_choices
+          (any_number
+            (one_byte_number)))))
+
+==========
+Directive Tests struct
+==========
+.struct Player {
+    x: .byte
+    y: .byte
+}
+---
+(source_file
+    (directive
+        (directives)
+        (identifier)
+        (parameter_block
+          (label
+            (identifier))
+        (directive
+            (directives)
+            (identifier))
+          (label)
+          (directive
+            (directives)))))

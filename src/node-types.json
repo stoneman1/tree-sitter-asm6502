@@ -1,0 +1,616 @@
+[
+  {
+    "type": "absolute",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "two_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "all_choices",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "any_number",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "any_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_number",
+          "named": true
+        },
+        {
+          "type": "decimal_number",
+          "named": true
+        },
+        {
+          "type": "one_byte_number",
+          "named": true
+        },
+        {
+          "type": "two_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "all_choices",
+          "named": true
+        },
+        {
+          "type": "any_number",
+          "named": true
+        },
+        {
+          "type": "directives",
+          "named": true
+        },
+        {
+          "type": "identOrNumber",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        },
+        {
+          "type": "parameter_block",
+          "named": true
+        },
+        {
+          "type": "parameters",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "identOrNumber",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "two_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "identifierWithLoHi",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "lohi",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "immediate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "any_number",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indexed",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifierWithLoHi",
+          "named": true
+        },
+        {
+          "type": "one_byte_number",
+          "named": true
+        },
+        {
+          "type": "two_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indirect",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "one_byte_number",
+          "named": true
+        },
+        {
+          "type": "two_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indirect_zeropage_x",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "one_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "indirect_zeropage_y",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "one_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "instruction",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "mnemonic",
+          "named": true
+        },
+        {
+          "type": "operand",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "labelOp",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "lohi",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "operand",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "absolute",
+          "named": true
+        },
+        {
+          "type": "accumulator",
+          "named": true
+        },
+        {
+          "type": "immediate",
+          "named": true
+        },
+        {
+          "type": "indexed",
+          "named": true
+        },
+        {
+          "type": "indirect",
+          "named": true
+        },
+        {
+          "type": "indirect_zeropage_x",
+          "named": true
+        },
+        {
+          "type": "indirect_zeropage_y",
+          "named": true
+        },
+        {
+          "type": "labelOp",
+          "named": true
+        },
+        {
+          "type": "relative",
+          "named": true
+        },
+        {
+          "type": "zero_page",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "operator",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "parameter_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "directive",
+          "named": true
+        },
+        {
+          "type": "instruction",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "preprocessor_directive",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "preprocessor_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "relative",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "operand",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "source_file",
+    "named": true,
+    "root": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "directive",
+          "named": true
+        },
+        {
+          "type": "instruction",
+          "named": true
+        },
+        {
+          "type": "label",
+          "named": true
+        },
+        {
+          "type": "preprocessor_directive",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "zero_page",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "one_byte_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "#",
+    "named": false
+  },
+  {
+    "type": "&",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<<",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">>",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "accumulator",
+    "named": true
+  },
+  {
+    "type": "binary_number",
+    "named": true
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "decimal_number",
+    "named": true
+  },
+  {
+    "type": "directives",
+    "named": true
+  },
+  {
+    "type": "hi",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "lo",
+    "named": false
+  },
+  {
+    "type": "mnemonic",
+    "named": true
+  },
+  {
+    "type": "one_byte_number",
+    "named": true
+  },
+  {
+    "type": "string",
+    "named": true
+  },
+  {
+    "type": "two_byte_number",
+    "named": true
+  },
+  {
+    "type": "x",
+    "named": false
+  },
+  {
+    "type": "y",
+    "named": false
+  },
+  {
+    "type": "{",
+    "named": false
+  },
+  {
+    "type": "|",
+    "named": false
+  },
+  {
+    "type": "}",
+    "named": false
+  },
+  {
+    "type": "~",
+    "named": false
+  }
+]

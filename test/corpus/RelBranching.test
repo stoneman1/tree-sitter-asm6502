@@ -1,0 +1,29 @@
+==========
+Relative Branching
+==========
+start:
+    lda #$01
+    beq end
+    inx
+    bne start
+end:
+    rts
+---
+(source_file
+    (label (identifier))
+    (instruction
+        (mnemonic)
+        (operand (immediate
+            (any_number
+              (one_byte_number)))))
+    (instruction
+        (mnemonic)
+        (operand (relative (identifier))))
+    (instruction
+        (mnemonic))
+    (instruction
+        (mnemonic)
+        (operand (relative (identifier))))
+    (label (identifier))
+    (instruction
+        (mnemonic)))

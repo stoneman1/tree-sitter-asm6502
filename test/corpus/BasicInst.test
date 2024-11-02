@@ -1,0 +1,88 @@
+==========
+Basic Instructions
+==========
+lda #$10
+sta $2000
+inx
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (immediate
+        (any_number (one_byte_number)))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (two_byte_number))))
+    (instruction
+        (mnemonic)))
+
+==========
+Basic Instructions 2
+==========
+lda #$10
+jmp *
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand
+            (immediate
+            (any_number
+            (one_byte_number)))))
+      (instruction
+        (mnemonic)
+        (operand)))
+
+==========
+Basic Instructions 3
+==========
+lda #0
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand
+            (immediate
+            (any_number (one_byte_number))))))
+
+==========
+Indexed Instructions 1
+==========
+lda $10,x
+ldx $10,y
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand
+            (indexed
+                (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand
+            (indexed
+                (one_byte_number)))))
+
+==========
+Indirect Instructions 1
+==========
+lda ($30,x)
+lda ($30),y
+jmp ($10)
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand
+            (indirect_zeropage_x
+                (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand
+            (indirect_zeropage_y
+                (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand
+            (indirect
+                (one_byte_number)))))

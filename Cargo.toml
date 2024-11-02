@@ -1,0 +1,32 @@
+[package]
+name = "tree-sitter-asm6502"
+description = "assembly 6502 grammar for the tree-sitter parsing library"
+authors = ["Aleksi Pousar"]
+version = "0.22.6"
+keywords = ["incremental", "parsing"]
+categories = ["parsing", "text-editors"]
+repository = "https://github.com/stoneman1/tree-sitter-asm6502"
+edition = "2024"
+license = "MIT"
+
+build = "bindings/rust/build.rs"
+include = ["bindings/rust/*", "grammar.js", "queries/*", "src/*"]
+
+[features]
+default = ["tree-sitter-standard"]
+tree-sitter-standard = ["dep:tree-sitter-standard"]
+tree-sitter-c2rust = [
+    "dep:tree-sitter-c2rust",
+    "dep:tree-sitter-wasm-build-tool",
+]
+
+[lib]
+path = "bindings/rust/lib.rs"
+
+[dependencies]
+tree-sitter-standard = { package = "tree-sitter", version = "0.22.6", optional = true }
+tree-sitter-c2rust = { version = "0.22.6", optional = true }
+
+[build-dependencies]
+cc = "1.0"
+tree-sitter-wasm-build-tool = { version = "0.2.2", optional = true }

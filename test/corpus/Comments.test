@@ -1,0 +1,80 @@
+==========
+Comments
+==========
+// This is a line comment
+lda #$10       // Immediate value
+sta $2000      // Store in memory
+/* This is a block comment
+   spanning multiple lines */
+inx            // Increment X register
+---
+(source_file
+    (comment)
+    (instruction
+        (mnemonic)
+        (operand (immediate
+            (any_number
+              (one_byte_number)))))
+    (comment)
+    (instruction
+        (mnemonic)
+        (operand (absolute (two_byte_number))))
+    (comment)
+    (comment)
+    (instruction
+        (mnemonic))
+      (comment))
+
+==========
+Simple block comment test
+==========
+/* This is a line comment */
+/* Block comment
+   that spans multiple lines */
+lda #$10
+---
+(source_file
+  (comment)
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand
+        (immediate (any_number
+              (one_byte_number))))))
+
+==========
+Simple comment test
+==========
+// This is a line comment
+/* Block comment
+   that spans multiple lines */
+lda #$10
+---
+(source_file
+  (comment)
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand (immediate
+            (any_number
+              (one_byte_number))))))
+
+==========
+Comment test with tests after instructions
+==========
+// Line comment before instruction
+lda #$10
+/* Block comment
+   before another instruction */
+sta $2000
+---
+(source_file
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand (immediate
+    (any_number (one_byte_number)))))
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand (absolute (two_byte_number)))))

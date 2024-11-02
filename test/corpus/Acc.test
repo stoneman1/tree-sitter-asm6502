@@ -1,0 +1,13 @@
+==========
+Accumulator
+==========
+asl A
+ror A
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (accumulator)))
+    (instruction
+        (mnemonic)
+        (operand (accumulator))))

@@ -1,0 +1,47 @@
+==========
+Different Addressing Modes
+==========
+lda #$10
+lda $2000
+lda $2000,x
+lda $2000,y
+lda $10
+lda $10,x
+lda $10,y
+lda ($10)
+lda ($10,x)
+lda ($10),y
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (immediate
+            (any_number
+              (one_byte_number)))))
+    (instruction
+        (mnemonic)
+        (operand (absolute (two_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indexed (two_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indexed (two_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (zero_page (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indexed (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indexed (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indirect (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indirect_zeropage_x (one_byte_number))))
+    (instruction
+        (mnemonic)
+        (operand (indirect_zeropage_y (one_byte_number)))))

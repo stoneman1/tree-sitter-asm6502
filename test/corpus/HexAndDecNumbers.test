@@ -1,0 +1,29 @@
+==========
+Hexadecimal and Decimal Numbers
+==========
+lda #$0F       // Hexadecimal immediate
+sta $1234      // Hexadecimal absolute
+lda #255       // Decimal immediate
+sta $5678      // Decimal absolute
+---
+(source_file
+    (instruction
+        (mnemonic)
+        (operand (immediate
+            (any_number
+              (one_byte_number)))))
+    (comment)
+    (instruction
+        (mnemonic)
+        (operand (absolute (two_byte_number))))
+    (comment)
+    (instruction
+        (mnemonic)
+        (operand (immediate
+            (any_number
+              (one_byte_number)))))
+    (comment)
+    (instruction
+        (mnemonic)
+        (operand (absolute (two_byte_number))))
+    (comment))
