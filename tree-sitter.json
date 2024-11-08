@@ -5,7 +5,10 @@
       "camelcase": "Asm6052",
       "scope": "source.asm",
       "path": ".",
-      "file-types": ["s", "asm", "assembly", "a"]
+      "file-types": ["s", "asm", "assembly", "a"],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm",
+      "injection-regex": "asm6502"
     }
   ],
   "metadata": {

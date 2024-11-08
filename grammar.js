@@ -105,16 +105,6 @@ module.exports = grammar({
           ),
         ),
       ),
-    /*
-
-      (source_file
-        (directive
-          (directives)
-          (identifier))
-        (ERROR
-          (one_byte_number)))
-          (directives))
-          */
 
     parameters: ($) =>
       seq(
@@ -211,6 +201,7 @@ module.exports = grammar({
       token(choice(seq("$", /[0-9a-fA-F]{4}/), /\d{1,5}/)), // Two-byte numbers for full memory addresses
     binary_number: ($) => token(seq("%", /[01]{1,6}/)), // Binary numbers like %101010
     decimal_number: ($) => token(/\d+/), // Decimal numbers like 12345
+    float: ($) => /-?[0-9][0-9_]*\.([0-9][0-9_]*)?/,
 
     any_number: ($) =>
       choice(
