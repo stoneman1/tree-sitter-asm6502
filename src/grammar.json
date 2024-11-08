@@ -1586,6 +1586,10 @@
         "value": "\\d+"
       }
     },
+    "float": {
+      "type": "PATTERN",
+      "value": "-?[0-9][0-9_]*\\.([0-9][0-9_]*)?"
+    },
     "any_number": {
       "type": "CHOICE",
       "members": [
