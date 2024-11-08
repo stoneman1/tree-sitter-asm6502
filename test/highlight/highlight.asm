@@ -3,7 +3,7 @@
 init:
 // ^ label
     lda #$00
-    // <- keyword
+    // <- function.builtin
 
 // Main loop
 // ^ comment
@@ -18,8 +18,8 @@ main:
     lda $0201
     clc
     adc #$01+1
-    // <- keyword
-    //  ^ immediate
+    // <- function.builtin
+    //  ^ number
     //      ^ operator
     sta $0201
     bne main
