@@ -200,7 +200,23 @@ const KickAssemblerNumberFormats = [
   ["%", "binary"],
 ];
 
-const KickAssemblerValueTypes = ["List", "Hashtable", "Matrix", "Vector"];
+const KickAssemblerValueTypes = [
+  ["65xxArgument", ""], // Assembly arguments like ($10),y
+  ["BinaryFile", ""], // Binary file data
+  ["Boolean", ""], // true/false values
+  ["Char", ""], // Single characters
+  ["Hashtable", ""], // Hash table data structure
+  ["List", ""], // List data structure
+  ["Matrix", ""], // 4x4 matrix
+  ["Null", ""], // null value
+  ["Number", ""], // Floating point numbers
+  ["OutputFile", ""], // Output file handler
+  ["Picture", ""], // Loaded picture data
+  ["SidFile", ""], // SID music file data
+  ["String", ""], // Text strings
+  ["Struct", ""], // User-defined structures
+  ["Vector", ""], // 3D vector
+];
 
 const KickAssemblerDataHandlingFunctions = [
   "LoadBinary", // LoadBinary("file.bin", "")

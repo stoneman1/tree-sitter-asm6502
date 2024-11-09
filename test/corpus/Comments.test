@@ -13,7 +13,7 @@ inx            // Increment X register
     (instruction
         (mnemonic)
         (operand (immediate
-            (any_number
+            (number
               (one_byte_number)))))
     (comment)
     (instruction
@@ -39,7 +39,7 @@ lda #$10
   (instruction
     (mnemonic)
     (operand
-        (immediate (any_number
+        (immediate (number
               (one_byte_number))))))
 
 ==========
@@ -56,7 +56,7 @@ lda #$10
   (instruction
     (mnemonic)
     (operand (immediate
-            (any_number
+            (number
               (one_byte_number))))))
 
 ==========
@@ -73,7 +73,7 @@ sta $2000
   (instruction
     (mnemonic)
     (operand (immediate
-    (any_number (one_byte_number)))))
+    (number (one_byte_number)))))
   (comment)
   (instruction
     (mnemonic)

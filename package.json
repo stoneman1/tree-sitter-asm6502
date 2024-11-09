@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-asm6502",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "KickAssembler assembly 6502 grammar for tree-sitter",
   "main": "bindings/node",
   "types": "bindings/node",

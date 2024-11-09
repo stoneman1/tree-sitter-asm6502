@@ -1,180 +1,90 @@
 const {
   KickAssemblerDirectives,
-  KickPreprocessorDirectives,
   AssemblerOpcodes,
-  KickAssemblerMathConstants,
-  KickAssemblerMathFunctions,
-  KickAssemblerValueTypes,
-  KickAssemblerDataHandlingFunctions,
 } = require("./OpcodesAndDirectives");
 
 const kickasmCodes = AssemblerOpcodes.map((item) => item.toLowerCase());
+const ACCUMULATOR_MNEMONICS = ["asl", "lsr", "rol", "ror", "inc", "dec"];
 
 module.exports = grammar({
   name: "asm6502",
 
-  // Define comments and extras
-  extras: ($) => [
-    /\s+/, // Allow whitespace
-    $.comment, // Allow comments
-  ],
-  word: ($) => $.identifier,
+  extras: ($) => [/\s+/, $.comment],
+  word: ($) => $.keyword_identifier,
   conflicts: ($) => [],
 
   rules: {
+    // === Top Level Structure ===
     source_file: ($) => repeat($._statement),
-    /*
-    A statement is either a
-      - label
-      - function
-      - instruction
-      - directive
-      - preprocessor directive
-    For example:
-    - `lda #$FF`
-    - `jmp ($1000)`
-    - `jmp [$1000]`
-    - `loop:`
-    - `!loop:`
-    - `!:`
-    - `!loop-`
-    - `#define`
-    - `*`
-    - `.if ($d012 < 100)`
-    - `.byte $FF`
-    */
     _statement: ($) =>
       choice($.directive, $.label, $.instruction, $.preprocessor_directive),
 
-    // Labels are identifiers followed by a colon (e.g., `loop:` or `!loop:`)
-    label: ($) => seq(optional("!"), optional($.identifier), ":"),
+    // === Instructions and Addressing Modes ===
+    mnemonic: ($) => prec(3, token(choice(...kickasmCodes))),
 
-    // Preprocessor directives start with a hash
-    // ie. `#define`
-    preprocessor_directive: ($) =>
-      seq("#", $.identifier, optional("!"), $.identifier),
-
-    // Instructions are composed of a mnemonic and an optional operand
-    instruction: ($) => prec.right(seq($.mnemonic, optional($.operand))),
-
-    // Full list of 6502 opcodes
-    mnemonic: ($) => token(choice(...kickasmCodes)),
-
-    // Handle
-    identOrNumber: ($) => choice($.identifier, $.two_byte_number),
-
-    /*
-    function commaSep(rule) {
-      return optional(seq(rule, repeat(seq(",", rule))));
-    }
-    */
-    // Many params for directives
-    // e.g. `.byte $FF, $00, $FF, $00`
-    /*directive_params: ($) =>
+    accumulator_instruction: ($) =>
       seq(
-        choice($.identifier, $.any_number, $.string),
-        commaSep(choice($.identifier, $.any_number, $.string)),
+        field("opcode", token(choice(...ACCUMULATOR_MNEMONICS))),
+        field("operand", $.accumulator),
       ),
-*/
-    all_choices: ($) => choice($.identifier, $.any_number, $.string),
-    // Handle directives
-    directive: ($) =>
-      prec.right(
+
+    instruction: ($) =>
+      prec(
+        2,
         choice(
-          seq(
-            "*",
-            "=",
-            $.identOrNumber,
-            optional(repeat(seq($.operator, $.identOrNumber))),
-          ),
-          seq(
-            ".", // All directives start with a dot
-            $.directives,
+          $.accumulator_instruction,
+          prec.right(
             seq(
-              choice(
-                $.identifier,
-                $.string,
-                $.parameters,
-                $.parameter_block,
-                commaSep(choice($.identifier, $.any_number, $.string)),
+              field("opcode", $.mnemonic),
+              optional(
+                seq(
+                  field("operand", $.operand),
+                  repeat(
+                    seq(
+                      field("operator", $.operator),
+                      field(
+                        "value",
+                        choice($.operand, $.identifier, $.number, $.value_type),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-              optional(seq("=", $.all_choices)),
-              optional($.parameters),
-              optional($.parameter_block),
             ),
           ),
         ),
       ),
 
-    parameters: ($) =>
-      seq(
-        "(",
-        choice(
-          commaSep($.identifier), // Simple identifiers
-        ),
-        ")",
-      ),
-
-    // Allow expressions inside parameters for complex directives like `.if`
-    expression: ($) =>
-      choice(
-        $.binary_expression, // Comparison operators, like in `.if ($d012 < 100)`
-        $.identifier, // Simple identifiers
-        $.operand, // Operands like numbers, addresses, etc.
-      ),
-
-    // Binary expressions for conditions (e.g., `$d012 < 100`)
-    binary_expression: ($) =>
-      prec.left(seq($.identifier, $.binary_operator, $.operand)),
-
-    // Binary operators like <, >, ==, etc.
-    binary_operator: () =>
-      token(choice("<", ">", "<=", ">=", "==", "!=", "&", "|", "^")),
-
-    // Define the block of parameters for a directive
-    parameter_block: ($) => seq("{", repeat($._statement), "}"),
-
-    // KickAssembler-specific directives
-    directives: ($) => token(choice(...KickAssemblerDirectives)),
-
-    // Math constants (PI, E, etc.)
-    math_constants: ($) => token(choice(...KickAssemblerMathConstants)),
-
-    // Math functions (abs, sqrt, etc.)
-    math_functions: ($) => token(choice(...KickAssemblerMathFunctions)),
-
-    // Data handling functions (LoadBinary, LoadPicture, etc.)
-    data_handling_functions: ($) =>
-      token(seq(choice(...KickAssemblerDataHandlingFunctions))),
-
-    // Operand definitions for different addressing modes
     operand: ($) =>
       choice(
-        "*", // jmp *
-        $.immediate, // Immediate values ie. lda #$FF
-        $.indexed, // Indexed addressing ie. lda $1000,x
-        $.absolute, // Absolute addressing ie. lda $1000
-        $.zero_page, // Zero-page addressing ie. lda $FF
-        $.indirect, // Indirect addressing ie. jmp ($1000)
-        $.indirect_zeropage_x, // Indirect zero-page addressing with X register ie. jmp ($FF,x)
-        $.indirect_zeropage_y, // Indirect zero-page addressing with Y register ie. jmp ($FF),y
-        $.labelOp, // Label with optional increment or decrement ie. !loop+
-        $.relative, // Relative addressing ie. bne loop or bne loop:#$00
-        $.accumulator, // Accumulator addressing ie. asl a
+        field("accumulator", $.accumulator),
+        "*",
+        field("immediate", $.immediate),
+        field("indexed", $.indexed),
+        field("absolute", $.absolute),
+        field("zero_page", $.zero_page),
+        field("indirect", $.indirect),
+        field("indirect_x", $.indirect_zeropage_x),
+        field("indirect_y", $.indirect_zeropage_y),
+        field("label", $.labelOp),
+        field("relative", $.relative),
       ),
+
+    accumulator: () => prec(4, token(choice("A", "a"))),
+
+    register_x: () => token(choice("x", "X")),
+    register_y: () => token(choice("y", "Y")),
 
     indexed: ($) =>
       seq(
         choice($.identifierWithLoHi, $.one_byte_number, $.two_byte_number),
         ",",
-        choice("x", "y"),
+        choice($.register_x, $.register_y),
       ),
 
-    immediate: ($) => prec(2, seq("#", choice($.any_number, $.identifier))),
-
-    absolute: ($) => $.two_byte_number,
-
-    zero_page: ($) => $.one_byte_number,
+    immediate: ($) => prec(2, seq("#", choice($.number, $.identifier))),
+    absolute: ($) => prec(3, $.two_byte_number),
+    zero_page: ($) => prec(2, $.one_byte_number),
 
     indirect: ($) =>
       seq("(", choice($.one_byte_number, $.two_byte_number), ")"),
@@ -184,63 +94,254 @@ module.exports = grammar({
     indirect_zeropage_y: ($) => seq("(", $.one_byte_number, ")", ",", "y"),
 
     relative: ($) =>
-      prec(1, prec.right(seq($.identifier, optional(seq(":", $.operand))))),
+      prec(
+        1,
+        prec.right(
+          seq(
+            field("label", $.identifier),
+            optional(seq(":", field("offset", $.operand))),
+          ),
+        ),
+      ),
 
     labelOp: ($) =>
-      seq(
-        "!",
-        choice("-", "+", $.identifier),
-        optional(repeat(choice("+", "-"))),
+      prec.left(
+        1,
+        choice(
+          seq("!", "-", repeat("-")),
+          seq("!", "+", repeat("+")),
+          seq("!", $.identifier, optional(repeat1(choice("+", "-")))),
+        ),
       ),
 
-    accumulator: ($) => "A",
+    // === Identifiers and Labels ===
+    identifier: ($) =>
+      token(choice(/[a-zA-Z_][a-zA-Z0-9_]+/, /[B-Zb-z_][a-zA-Z0-9_]*/)),
+
+    keyword_identifier: ($) => /[a-z_]+/,
+
+    label: ($) =>
+      choice(
+        seq(
+          ".",
+          "label",
+          field("name", $.identifier),
+          "=",
+          field("value", choice($.identifier, $.number, $.address_value)),
+        ),
+        seq(optional("!"), field("name", optional($.identifier)), ":"),
+      ),
+
+    // === Numbers ===
+    number: ($) =>
+      prec(
+        1,
+        choice(
+          field("byte", $.one_byte_number),
+          field("two_byte", $.two_byte_number),
+          field("binary", $.binary_number),
+          field("decimal", $.decimal_number),
+          field("float", $.float),
+        ),
+      ),
 
     one_byte_number: ($) =>
-      token(choice(seq("$", /[0-9a-fA-F]{2}/), /\d{1,3}/)), // One-byte numbers for zero-page
-    two_byte_number: ($) =>
-      token(choice(seq("$", /[0-9a-fA-F]{4}/), /\d{1,5}/)), // Two-byte numbers for full memory addresses
-    binary_number: ($) => token(seq("%", /[01]{1,6}/)), // Binary numbers like %101010
-    decimal_number: ($) => token(/\d+/), // Decimal numbers like 12345
-    float: ($) => /-?[0-9][0-9_]*\.([0-9][0-9_]*)?/,
+      token(choice(seq("$", /[0-9a-fA-F]{2}/), /\d{1,3}/)),
 
-    any_number: ($) =>
+    two_byte_number: ($) =>
+      token(choice(seq("$", /[0-9a-fA-F]{4}/), /\d{1,5}/)),
+
+    binary_number: ($) => token(seq("%", /[01]{1,6}/)),
+    decimal_number: ($) => token(/\d+/),
+    float: ($) => token(/-?\d+\.\d*/),
+
+    // === Value Types ===
+    value_type: ($) =>
       choice(
-        $.one_byte_number,
-        $.two_byte_number,
-        $.binary_number,
-        $.decimal_number,
+        field("address", $.address_value),
+        field("binary", $.binary_file),
+        field("boolean", $.boolean_value),
+        field("char", $.char_value),
+        field("hashtable", $.hashtable_value),
+        field("list", $.list_value),
+        field("matrix", $.matrix_value),
+        field("null", $.null_value),
+        field("number", $.number_value),
+        field("file", $.output_file),
+        field("picture", $.picture_value),
+        field("sid", $.sid_file),
+        field("string", $.string),
+        field("struct", $.struct_value),
+        field("vector", $.vector),
       ),
 
-    // Identifiers for labels and relative branches etc
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    address_value: ($) =>
+      prec.right(
+        2,
+        choice(
+          seq(
+            "$",
+            /[0-9a-fA-F]+/,
+            optional(prec.left(1, seq(",", choice("x", "y")))),
+          ),
+          seq(
+            "(",
+            "$",
+            /[0-9a-fA-F]+/,
+            ")",
+            optional(prec.left(1, seq(",", choice("x", "y")))),
+          ),
+        ),
+      ),
 
-    // Lo/hi table access
-    lohi: ($) => seq(".", choice("lo", "hi")),
+    binary_file: ($) =>
+      seq(
+        "LoadBinary(",
+        field("path", $.string),
+        optional(seq(",", field("options", $.string))),
+        ")",
+      ),
 
-    identifierWithLoHi: ($) => seq($.identifier, optional($.lohi)),
+    boolean_value: () => choice("true", "false"),
+    char_value: () => seq("'", /[^']/, "'"),
+    null_value: () => "null",
 
-    operator: ($) =>
-      choice("+", "-", "*", "/", ">", "<", "<<", ">>", "&", "|", "^", "~"),
+    hashtable_value: ($) =>
+      seq("Hashtable(", optional(field("params", $.parameters)), ")"),
 
-    // Strings in double quotes
-    string: () => token(seq('"', /[^"]*/, '"')),
+    list_value: ($) =>
+      seq("List(", optional(field("items", commaSep($.value_type))), ")"),
+
+    matrix_value: ($) =>
+      seq("Matrix(", optional(field("values", commaSep($.number_value))), ")"),
 
     vector_value: ($) =>
-      seq($.decimal_number, $.decimal_number, $.decimal_number),
-    vector: ($) => seq("Vector", "(", $.vector_value, ")"),
-
-    // semicolon for lines
-    semicolon: () => ";",
-
-    variable_declarator: ($) =>
       seq(
-        field("kind", choice("var")),
-        field("name", $.identifier),
-        "=",
-        field("value", choice($.string, $.any_number, $.identifier)),
+        field("x", $.decimal_number),
+        field("y", $.decimal_number),
+        field("z", $.decimal_number),
       ),
 
-    // KickAssembler-style comments (using `//` and `/* */`)
+    vector: ($) => seq("Vector(", $.vector_value, ")"),
+
+    number_value: ($) => choice($.decimal_number, $.float),
+
+    output_file: ($) => seq("createFile(", field("filename", $.string), ")"),
+
+    picture_value: ($) => seq("LoadPicture(", field("path", $.string), ")"),
+
+    sid_file: ($) => seq("LoadSid(", field("path", $.string), ")"),
+
+    struct_value: ($) =>
+      seq(
+        field("type", $.identifier),
+        "(",
+        optional(field("fields", commaSep($.value_type))),
+        ")",
+      ),
+
+    // === Directives ===
+    directives: () => token(choice(...KickAssemblerDirectives)),
+
+    directive: ($) =>
+      prec.right(
+        choice(
+          seq(
+            "*",
+            "=",
+            field("value", $.number),
+            optional(
+              repeat(
+                seq(field("operator", $.operator), field("operand", $.number)),
+              ),
+            ),
+          ),
+          seq(".", token("text"), field("value", $.string)),
+          seq(
+            ".",
+            field("directive", $.directives),
+            seq(
+              choice(
+                $.identifier,
+                $.parameters,
+                $.parameter_block,
+                commaSep(choice($.identifier, $.number, $.string)),
+              ),
+              optional(
+                seq(
+                  "=",
+                  field("value", choice($.identifier, $.number, $.string)),
+                ),
+              ),
+              optional($.parameters),
+              optional($.parameter_block),
+            ),
+          ),
+        ),
+      ),
+
+    // === Preprocessor ===
+    preprocessor_directive: ($) =>
+      seq(
+        "#",
+        field("directive", $.identifier),
+        optional("!"),
+        field("value", $.identifier),
+      ),
+
+    // === Parameters and Blocks ===
+    parameters: ($) => seq("(", commaSep(field("param", $.identifier)), ")"),
+
+    parameter_block: ($) => seq("{", repeat($._statement), "}"),
+
+    // === Operators ===
+    operator: ($) =>
+      choice(
+        choice("+", "-", "*", "/"),
+        choice("<<", ">>", "&", "|", "^", "~"),
+        choice("<", ">"),
+      ),
+
+    binary_operator: () =>
+      token(choice("<", ">", "<=", ">=", "==", "!=", "&", "|", "^")),
+
+    // === Misc ===
+    lohi: ($) => seq(".", choice("lo", "hi")),
+
+    identifierWithLoHi: ($) =>
+      seq(field("base", $.identifier), optional(field("selector", $.lohi))),
+
+    string: () =>
+      choice(
+        token(seq('"', /[^"]*/, '"')),
+        token(
+          seq(
+            "@",
+            '"',
+            repeat(
+              choice(
+                /[^"\\]+/,
+                seq(
+                  "\\",
+                  choice(
+                    // Escape sequences
+                    "b", // backspace
+                    "f", // form feed
+                    "n", // newline
+                    "r", // carriage return
+                    "t", // tab
+                    '"', // quote
+                    "\\", // backslash
+                    seq("$", /[0-9a-fA-F]{2}/), // hex value like \$ff
+                  ),
+                ),
+              ),
+            ),
+            '"',
+          ),
+        ),
+      ),
+
     comment: ($) =>
       token(
         choice(
@@ -250,7 +351,7 @@ module.exports = grammar({
       ),
   },
 });
-// Utility function for comma-separated items
+
 function commaSep(rule) {
   return optional(seq(rule, repeat(seq(",", rule))));
 }
