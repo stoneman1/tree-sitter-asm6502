@@ -6,20 +6,33 @@ lda $2000,x    // Absolute,x
 lda $10,y      // Zero Page,y
 lda $2000,y    // Absolute,y
 ---
+
 (source_file
-    (instruction
-        (mnemonic)
-        (operand (indexed (one_byte_number))))
-    (comment)
-    (instruction
-        (mnemonic)
-        (operand (indexed (two_byte_number))))
-    (comment)
-    (instruction
-        (mnemonic)
-        (operand (indexed (one_byte_number))))
-    (comment)
-    (instruction
-        (mnemonic)
-        (operand (indexed (two_byte_number))))
-    (comment))
+  (instruction
+    (mnemonic)
+    (operand
+      (indexed
+        (one_byte_number)
+        (register_x))))
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand
+      (indexed
+        (two_byte_number)
+        (register_x))))
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand
+      (indexed
+        (one_byte_number)
+        (register_y))))
+  (comment)
+  (instruction
+    (mnemonic)
+    (operand
+      (indexed
+        (two_byte_number)
+        (register_y))))
+  (comment))

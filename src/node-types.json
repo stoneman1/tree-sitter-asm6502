@@ -15,85 +15,130 @@
     }
   },
   {
-    "type": "all_choices",
+    "type": "accumulator",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "any_number",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
+    "fields": {}
+  },
+  {
+    "type": "accumulator_instruction",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "accumulator",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
-    "type": "any_number",
+    "type": "address_value",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "binary_number",
-          "named": true
-        },
-        {
-          "type": "decimal_number",
-          "named": true
-        },
-        {
-          "type": "one_byte_number",
-          "named": true
-        },
-        {
-          "type": "two_byte_number",
-          "named": true
-        }
-      ]
+    "fields": {}
+  },
+  {
+    "type": "binary_file",
+    "named": true,
+    "fields": {
+      "options": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
+  },
+  {
+    "type": "boolean_value",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "char_value",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "directive",
     "named": true,
-    "fields": {},
+    "fields": {
+      "directive": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "directives",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "operator",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "all_choices",
-          "named": true
-        },
-        {
-          "type": "any_number",
-          "named": true
-        },
-        {
-          "type": "directives",
-          "named": true
-        },
-        {
-          "type": "identOrNumber",
-          "named": true
-        },
         {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "operator",
+          "type": "number",
           "named": true
         },
         {
@@ -112,41 +157,45 @@
     }
   },
   {
-    "type": "identOrNumber",
+    "type": "hashtable_value",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "two_byte_number",
-          "named": true
-        }
-      ]
+    "fields": {
+      "params": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "parameters",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "identifierWithLoHi",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "lohi",
-          "named": true
-        }
-      ]
+    "fields": {
+      "base": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "selector": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "lohi",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -158,11 +207,11 @@
       "required": true,
       "types": [
         {
-          "type": "any_number",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "number",
           "named": true
         }
       ]
@@ -173,7 +222,7 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -182,6 +231,14 @@
         },
         {
           "type": "one_byte_number",
+          "named": true
+        },
+        {
+          "type": "register_x",
+          "named": true
+        },
+        {
+          "type": "register_y",
           "named": true
         },
         {
@@ -243,17 +300,66 @@
   {
     "type": "instruction",
     "named": true,
-    "fields": {},
+    "fields": {
+      "opcode": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "mnemonic",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "operand",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "operator",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "operand",
+            "named": true
+          },
+          {
+            "type": "value_type",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
-      "required": true,
+      "multiple": false,
+      "required": false,
       "types": [
         {
-          "type": "mnemonic",
-          "named": true
-        },
-        {
-          "type": "operand",
+          "type": "accumulator_instruction",
           "named": true
         }
       ]
@@ -262,16 +368,35 @@
   {
     "type": "label",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "address_value",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -290,65 +415,256 @@
     }
   },
   {
+    "type": "list_value",
+    "named": true,
+    "fields": {
+      "items": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "value_type",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "lohi",
     "named": true,
     "fields": {}
   },
   {
-    "type": "operand",
+    "type": "matrix_value",
+    "named": true,
+    "fields": {
+      "values": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "number_value",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "mnemonic",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "number",
+    "named": true,
+    "fields": {
+      "binary": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "binary_number",
+            "named": true
+          }
+        ]
+      },
+      "byte": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "one_byte_number",
+            "named": true
+          }
+        ]
+      },
+      "decimal": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "decimal_number",
+            "named": true
+          }
+        ]
+      },
+      "float": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "float",
+            "named": true
+          }
+        ]
+      },
+      "two_byte": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "two_byte_number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "number_value",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "absolute",
+          "type": "decimal_number",
           "named": true
         },
         {
-          "type": "accumulator",
-          "named": true
-        },
-        {
-          "type": "immediate",
-          "named": true
-        },
-        {
-          "type": "indexed",
-          "named": true
-        },
-        {
-          "type": "indirect",
-          "named": true
-        },
-        {
-          "type": "indirect_zeropage_x",
-          "named": true
-        },
-        {
-          "type": "indirect_zeropage_y",
-          "named": true
-        },
-        {
-          "type": "labelOp",
-          "named": true
-        },
-        {
-          "type": "relative",
-          "named": true
-        },
-        {
-          "type": "zero_page",
+          "type": "float",
           "named": true
         }
       ]
     }
   },
   {
+    "type": "operand",
+    "named": true,
+    "fields": {
+      "absolute": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "absolute",
+            "named": true
+          }
+        ]
+      },
+      "accumulator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "accumulator",
+            "named": true
+          }
+        ]
+      },
+      "immediate": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "immediate",
+            "named": true
+          }
+        ]
+      },
+      "indexed": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "indexed",
+            "named": true
+          }
+        ]
+      },
+      "indirect": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "indirect",
+            "named": true
+          }
+        ]
+      },
+      "indirect_x": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "indirect_zeropage_x",
+            "named": true
+          }
+        ]
+      },
+      "indirect_y": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "indirect_zeropage_y",
+            "named": true
+          }
+        ]
+      },
+      "label": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "labelOp",
+            "named": true
+          }
+        ]
+      },
+      "relative": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "relative",
+            "named": true
+          }
+        ]
+      },
+      "zero_page": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "zero_page",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "operator",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "output_file",
+    "named": true,
+    "fields": {
+      "filename": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "parameter_block",
@@ -380,50 +696,101 @@
   {
     "type": "parameters",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "param": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "picture_value",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "preprocessor_directive",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
+    "fields": {
+      "directive": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
     "type": "relative",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "operand",
-          "named": true
-        }
-      ]
+    "fields": {
+      "label": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "offset": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "operand",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "sid_file",
+    "named": true,
+    "fields": {
+      "path": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -455,6 +822,248 @@
     }
   },
   {
+    "type": "string",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "struct_value",
+    "named": true,
+    "fields": {
+      "fields": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "value_type",
+            "named": true
+          }
+        ]
+      },
+      "type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "value_type",
+    "named": true,
+    "fields": {
+      "address": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "address_value",
+            "named": true
+          }
+        ]
+      },
+      "binary": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "binary_file",
+            "named": true
+          }
+        ]
+      },
+      "boolean": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "boolean_value",
+            "named": true
+          }
+        ]
+      },
+      "char": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "char_value",
+            "named": true
+          }
+        ]
+      },
+      "file": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "output_file",
+            "named": true
+          }
+        ]
+      },
+      "hashtable": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "hashtable_value",
+            "named": true
+          }
+        ]
+      },
+      "list": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "list_value",
+            "named": true
+          }
+        ]
+      },
+      "matrix": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "matrix_value",
+            "named": true
+          }
+        ]
+      },
+      "null": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "null_value",
+            "named": true
+          }
+        ]
+      },
+      "number": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number_value",
+            "named": true
+          }
+        ]
+      },
+      "picture": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "picture_value",
+            "named": true
+          }
+        ]
+      },
+      "sid": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "sid_file",
+            "named": true
+          }
+        ]
+      },
+      "string": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
+      "struct": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "struct_value",
+            "named": true
+          }
+        ]
+      },
+      "vector": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "vector",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "vector",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "vector_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "vector_value",
+    "named": true,
+    "fields": {
+      "x": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decimal_number",
+            "named": true
+          }
+        ]
+      },
+      "y": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decimal_number",
+            "named": true
+          }
+        ]
+      },
+      "z": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "decimal_number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "zero_page",
     "named": true,
     "fields": {},
@@ -478,7 +1087,15 @@
     "named": false
   },
   {
+    "type": "$",
+    "named": false
+  },
+  {
     "type": "&",
+    "named": false
+  },
+  {
+    "type": "'",
     "named": false
   },
   {
@@ -538,12 +1155,36 @@
     "named": false
   },
   {
-    "type": "^",
+    "type": "Hashtable(",
     "named": false
   },
   {
-    "type": "accumulator",
-    "named": true
+    "type": "List(",
+    "named": false
+  },
+  {
+    "type": "LoadBinary(",
+    "named": false
+  },
+  {
+    "type": "LoadPicture(",
+    "named": false
+  },
+  {
+    "type": "LoadSid(",
+    "named": false
+  },
+  {
+    "type": "Matrix(",
+    "named": false
+  },
+  {
+    "type": "Vector(",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
   },
   {
     "type": "binary_number",
@@ -554,11 +1195,23 @@
     "named": true
   },
   {
+    "type": "createFile(",
+    "named": false
+  },
+  {
     "type": "decimal_number",
     "named": true
   },
   {
     "type": "directives",
+    "named": true
+  },
+  {
+    "type": "false",
+    "named": false
+  },
+  {
+    "type": "float",
     "named": true
   },
   {
@@ -570,11 +1223,15 @@
     "named": true
   },
   {
+    "type": "label",
+    "named": false
+  },
+  {
     "type": "lo",
     "named": false
   },
   {
-    "type": "mnemonic",
+    "type": "null_value",
     "named": true
   },
   {
@@ -582,8 +1239,20 @@
     "named": true
   },
   {
-    "type": "string",
+    "type": "register_x",
     "named": true
+  },
+  {
+    "type": "register_y",
+    "named": true
+  },
+  {
+    "type": "text",
+    "named": false
+  },
+  {
+    "type": "true",
+    "named": false
   },
   {
     "type": "two_byte_number",

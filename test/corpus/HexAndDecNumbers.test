@@ -10,7 +10,7 @@ sta $5678      // Decimal absolute
     (instruction
         (mnemonic)
         (operand (immediate
-            (any_number
+            (number
               (one_byte_number)))))
     (comment)
     (instruction
@@ -20,7 +20,7 @@ sta $5678      // Decimal absolute
     (instruction
         (mnemonic)
         (operand (immediate
-            (any_number
+            (number
               (one_byte_number)))))
     (comment)
     (instruction

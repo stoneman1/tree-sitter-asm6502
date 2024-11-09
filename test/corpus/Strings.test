@@ -1,0 +1,59 @@
+==========
+Normal Strings
+==========
+.text "Hello World"
+.text "c:\newstuff"
+.text "path\to\file"
+---
+(source_file
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string)))
+
+==========
+Escaped Strings
+==========
+.text @"Simple text"
+.text @"First line.\nSecond line"
+.text @"Tab\there"
+.text @"Backspace\b"
+.text @"Form\ffeed"
+.text @"Return\r"
+.text @"Quotes \"inside\""
+.text @"Path: c:\\temp\\file.txt"
+.text @"Hex: \$ff"
+---
+(source_file
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string))
+  (directive
+    (string)))
+
+==========
+Mixed String Types
+==========
+.text "normal\n\t\r"
+.text @"escaped\n\t\r"
+---
+(source_file
+  (directive
+    (string))
+  (directive
+    (string)))

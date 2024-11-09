@@ -14,7 +14,7 @@ end:
     (instruction
         (mnemonic)
         (operand (immediate
-            (any_number
+            (number
               (one_byte_number)))))
     (instruction
         (mnemonic)

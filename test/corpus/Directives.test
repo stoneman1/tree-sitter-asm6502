@@ -83,13 +83,13 @@ Directive Tests multiple params
 (source_file
     (directive
         (directives)
-        (any_number
+        (number
           (one_byte_number))
-        (any_number
+        (number
           (one_byte_number))
-        (any_number
+        (number
           (one_byte_number))
-        (any_number
+        (number
           (one_byte_number))))
 
 ==========
@@ -101,9 +101,8 @@ Directive Tests variables
     (directive
         (directives)
         (identifier)
-        (all_choices
-          (any_number
-            (one_byte_number)))))
+          (number
+            (one_byte_number))))
 
 ==========
 Directive Tests struct
