@@ -9,10 +9,20 @@
       "highlights": "queries/highlights.scm",
       "injections": "queries/injections.scm",
       "injection-regex": "asm6502"
+    },
+    {
+      "name": "asm6502",
+      "camelcase": "Asm6052",
+      "scope": "source.asm",
+      "path": ".",
+      "file-types": ["s", "asm", "assembly", "a"],
+      "highlights": "queries/highlights.scm",
+      "injections": "queries/injections.scm",
+      "injection-regex": "asm6502"
     }
   ],
   "metadata": {
-    "version": "0.1.0",
+    "version": "0.2.0",
     "license": "MIT",
     "description": "assembly 6502 grammar for tree-sitter",
     "authors": [
