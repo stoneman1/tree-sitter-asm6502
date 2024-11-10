@@ -49,6 +49,10 @@
         "required": false,
         "types": [
           {
+            "type": "identifier",
+            "named": true
+          },
+          {
             "type": "string",
             "named": true
           }
@@ -110,10 +114,24 @@
           }
         ]
       },
+      "segment": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      },
       "value": {
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "binary_file",
+            "named": true
+          },
           {
             "type": "identifier",
             "named": true
@@ -379,8 +397,18 @@
           }
         ]
       },
+      "operator": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "operator",
+            "named": true
+          }
+        ]
+      },
       "value": {
-        "multiple": false,
+        "multiple": true,
         "required": false,
         "types": [
           {
@@ -1245,10 +1273,6 @@
   {
     "type": "register_y",
     "named": true
-  },
-  {
-    "type": "text",
-    "named": false
   },
   {
     "type": "true",
