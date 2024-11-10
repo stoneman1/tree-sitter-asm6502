@@ -7,10 +7,13 @@ Normal Strings
 ---
 (source_file
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string)))
 
 ==========
@@ -28,22 +31,31 @@ Escaped Strings
 ---
 (source_file
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string)))
 
 ==========
@@ -54,6 +66,8 @@ Mixed String Types
 ---
 (source_file
   (directive
+    (directives)
     (string))
   (directive
+    (directives)
     (string)))

@@ -1,5 +1,35 @@
 # Changelog
 
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.3.0] - 2024-01-10
+
+### Added
+- Support for method calls and function calls in directives
+- Enhanced directive handling to support complex expressions
+- Method call parsing for value types (e.g., `picture.getScreenRamSize()`)
+- Nested function call support in directives
+- Parameter handling for function calls
+- Support for comma-separated method call arguments
+
+### Changed
+- Refactored directive parsing to handle method calls
+- Improved handling of built-in functions and method calls
+- Enhanced parameter handling in directives
+- Updated AST structure for better method call representation
+- Reorganized value type handling
+
+### Fixed
+- Directive parsing for complex expressions
+- Method call argument handling
+- Comma-separated value parsing in directives
+- Conflicts in directive parsing with method calls
+
+---
+
 ## [0.2.0] - 2024-01-09
 
 ### Added
